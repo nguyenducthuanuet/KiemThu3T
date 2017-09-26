@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 describe("Kiem tra thuc hien chuc nang chinh cua man hinh khi nhan Enter", function () {
 
     it('Dang nhap', function () {
@@ -15,12 +17,9 @@ describe("Kiem tra thuc hien chuc nang chinh cua man hinh khi nhan Enter", funct
     it('Kiem tra can le cua cac <td>', function () {
         cy.get('tbody tr td').each(function($el, index, $list) {
             if(isNaN(parseInt($el.context.innerText))) {
-              console.log($el.context.innerText);
+              if(_.isEmpty($el.context.innerText))
+                console.log("nut bam");
             }
         });
     });
-
-    it('Click khi focus vao 1 input', function () {
-        cy.get('input[name=name]:first').type('{enter}');
-    })
 });
