@@ -1,25 +1,24 @@
 const _ = require('lodash');
 
+
 describe("Kiem tra thuc hien chuc nang chinh cua man hinh khi nhan Enter", function () {
 
-    it('Dang nhap', function () {
-        cy.visit(Cypress.env('URL_LOGIN'));
-    	cy.get('input[name=email]').type(Cypress.env('USER_ADMIN'));
-    	cy.get('input[name=password]').type(Cypress.env('LOGIN_PASSWORD'));
-    	cy.get('button[type=submit]').click();
-    });
+    _.forEach(Cypress.env('users'), function (user) {
+        context("User: " + user.role, function () {
+            it("dang nhap", function () {
+                cy.visit(Cypress.env('LOGIN_URL'));
+                cy.get('input[name=email]').type(user.user.email);
+                cy.get('input[name=password]').type(user.user.password);
+                cy.get('button[type=submit]').click();
+            });
 
-    it('Truy cap trang them moi benh nhan', function () {
+            it("Kiem tra grid trong /main/admin/administrators/employments", function () {
+                cy.visit('/main/admin/administrators/employments');
+                console.log("123");
+                cy.get('table');
+            });
 
-        cy.get('.page-sidebar-menu .nav-item').contains('Quản lý người dùng').click();
-    });
 
-    it('Kiem tra can le cua cac <td>', function () {
-        cy.get('tbody tr td').each(function($el, index, $list) {
-            if(isNaN(parseInt($el.context.innerText))) {
-              if(_.isEmpty($el.context.innerText))
-                console.log("nut bam");
-            }
-        });
+        })
     });
 });
