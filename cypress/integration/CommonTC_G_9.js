@@ -19,20 +19,21 @@ describe("Kiem tra thuc hien chuc nang chinh cua man hinh khi nhan Enter", funct
                         // console.log($el.text(), isNaN($el.text()));
                         if(!isNaN(parseInt($el.text()))) {
                             // console.log($el.text(), parseInt($el.text()));
-                            expect($el).to.have.css('text-align', 'right');
+                            expect($el).to.have.css('text-align', 'center');
                         } else {
                             var date = new Date($el.text());
                             if (date instanceof Date && !isNaN(date.valueOf())) {
-                                expect($el).to.have.css('text-align', 'center');
+                                expect($el).to.have.css('text-align', 'left');
+                            } else {
+                                expect($el).to.have.css('text-align', 'left');
                             }
-                            expect($el).to.have.css('text-align', 'left');
                         }
                     });
 
-                    cy.get('.page-header .title').each(function ($el, index, $list) {
-                        expect($el).to.have.css('text-align', 'left');
-                        expect($el).to.have.css('font-weight', 'bold');
-                    })
+                    // cy.get('.page-header .title').each(function ($el, index, $list) {
+                    //     expect($el).to.have.css('text-align', 'left');
+                    //     expect($el).to.have.css('font-weight', 'bold');
+                    // });
                 });
             });
 
